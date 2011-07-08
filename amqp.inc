@@ -12,7 +12,8 @@ require_once('hexdump.inc');
 
 function debug_msg($s)
 {
-  echo $s, "\n";
+    error_log($s);
+  //echo $s, "\n";
 }
 
 function methodSig($a)
@@ -379,7 +380,7 @@ class AMQPConnection extends AbstractChannel
             }
             
             stream_set_timeout($this->sock, $read_write_timeout);
-            stream_set_blocking($this->sock, 1);
+            stream_set_blocking($this->sock, 0);
             $this->input = new AMQPReader(null, $this->sock);
 
             $this->write(AMQPConnection::$AMQP_PROTOCOL_HEADER);
